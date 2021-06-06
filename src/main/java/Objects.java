@@ -17,7 +17,6 @@ abstract class Objects {
     protected int dropAmount;
 
     void takeDamage(){
-    /*fhjbvfhbdhv*/
     }
 }
 
