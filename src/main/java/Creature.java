@@ -10,5 +10,5 @@
  * @author macie
  */
 abstract class Creature extends Objects {
-    
+    hghnh
 }
