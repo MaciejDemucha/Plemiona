@@ -1,10 +1,10 @@
 
 abstract class Human extends Creature{
     protected int itemLevel;
-    protected int tribe;
+    protected int tribeIndex;
     
     @Override
-    public int eat(){
+    public void eat(){
         
     }
 }

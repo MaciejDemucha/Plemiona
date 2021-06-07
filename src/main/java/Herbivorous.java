@@ -11,18 +11,31 @@
 public class Herbivorous extends Creature{
     private int perception;
     
-    public boolean isEnemyNerby(){
-    
+    public boolean isEnemyNerby(Objects mapItems[][]){
+        for(int i =1;i<perception+1;i++){
+           // if(mapItems[positionX+i][positionY] || )
+        }
+        return true;
     }
-    public void runAway(){
-    
+    public void runAway(Object mapItems[][]){
+        
     }
     @Override
     public void eat(){
     
     }
-    public Herbivorous(){
+    @Override
+    public Objects findTarget(){
     
+    }
+    public Herbivorous(int positionX, int positionY, int healthPoints, int resourceIndex, int dropAmount, int perception){
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.healthPoints = healthPoints;
+        this.resourceIndex = resourceIndex;
+        this.dropAmount = dropAmount;
+        this.perception = perception;
+        
     }
     
 }

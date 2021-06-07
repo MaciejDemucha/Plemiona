@@ -18,6 +18,13 @@ public class Carnivorous extends Creature{
     public void eat(){
             
     }
-    public Carnivorous(){
+    public Carnivorous(int positionX, int positionY, int healthPoints, int resourceIndex, int dropAmount, int strenght){
+        this.positionX = positionX;
+        this.positionY = positionY;
+        this.healthPoints = healthPoints;
+        this.resourceIndex = resourceIndex;
+        this.dropAmount = dropAmount;
+        this.strenght = strenght;
+        
     }
 }
