@@ -3,8 +3,8 @@ abstract class Human extends Creature{
     protected int itemLevel;
     protected int tribeIndex;
     
-    @Override
-    public void eat(){
-        
+    protected void eat(int[] resources){
+        this.hungerPoints+=5;
+        resources[3]-=5;
     }
 }

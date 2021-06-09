@@ -12,6 +12,9 @@ public class Tribe {
             return false;
         }
     }
+     public boolean isEnoughFood(){
+        return resourceAmount[3]>50;
+    }
 }
 
 

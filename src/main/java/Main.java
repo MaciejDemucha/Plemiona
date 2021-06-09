@@ -7,6 +7,8 @@ public class Main {
         Map map = new Map(random);
         map.createObjects();
         map.refresh();
+        
+   
 
     }
 }

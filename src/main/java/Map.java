@@ -14,31 +14,22 @@ public class Map {
     private Tribe[] tribeList;
     private Randomizer random;
 
-    public void refresh() {
-        
-        
+    private int[][] herbivorousList = new int[5][2];
+    private int[][] carnivorceList = new int[5][2];
+    private int[][] plantList = new int[5][2];
+    private int[][] treeList = new int[5][2];
+    private int[][] rockList = new int[2][2];
+    private int[][] ironList = new int[2][2];
+    private int[][] humanList = new int[10][2];
 
-        
-        for (int i = 0; i < 100; i++) {
-            for (int j = 0; j < 100; j++) {
-               if(mapItems[i][j] instanceof Creature){
-                   //System.out.print(mapItems[i][j].getClass().toString()+" ");
-                   mapItems[i][j].findTarget();
-                
-                }
-            }
-        }
-  
+    public void refresh() {
     }
 
     public void createObjects() {
-        
-        mapItems = new Objects[100][100];
-        
-        //mapItems[1][1] = new Carnivorous(1, 1, 10, 3, 10, 10);
-        
-        
 
+        mapItems = new Objects[100][100];
+
+        //mapItems[1][1] = new Carnivorous(1, 1, 10, 3, 10, 10);
         createRock(0);
         createRock(0);
         createRock(1);
@@ -74,65 +65,103 @@ public class Map {
     private void createRock(int resourceIndex) {
         int x = random.randomizeLocation();
         int y = random.randomizeLocation();
-        while (!isEmpty(x, y)) {
+        while (!isEmpty(x, y) && x != 101) {
             x = random.randomizeLocation();
             y = random.randomizeLocation();
         }
         //ROCK MA MIEĆ USTALONE HP I DROPAMOUNT - DO ZMIANY
         mapItems[x][y] = new Rock(x, y, 10, resourceIndex, 10);
+        if (resourceIndex == 0) {
+            inputToTable(x, y, rockList);
+        } else {
+            inputToTable(x, y, ironList);
+        }
+
     }
 
     private void createPlant(int resourceIndex, int regrowTime) {
         int x = random.randomizeLocation();
         int y = random.randomizeLocation();
-        while (!isEmpty(x, y)) {
+        while (!isEmpty(x, y) && x != 101) {
             x = random.randomizeLocation();
             y = random.randomizeLocation();
         }
         mapItems[x][y] = new Plant(x, y, random.randomizeHealthPoints(), resourceIndex, random.randomizeDropAmount(), regrowTime);
+        if (resourceIndex == 2) {
+            inputToTable(x, y, treeList);
+        } else {
+            inputToTable(x, y, plantList);
+        }
     }
 
     private void createCarnivorous() {
         int x = random.randomizeLocation();
         int y = random.randomizeLocation();
-        while (!isEmpty(x, y)) {
+        while (!isEmpty(x, y) && x != 101) {
             x = random.randomizeLocation();
             y = random.randomizeLocation();
         }
         mapItems[x][y] = new Carnivorous(x, y, random.randomizeHealthPoints(), 3, random.randomizeDropAmount(), random.randomizeStrenght());
+        inputToTable(x, y, carnivorceList);
     }
 
     private void createHerbivorous() {
         int x = random.randomizeLocation();
         int y = random.randomizeLocation();
-        while (!isEmpty(x, y)) {
+        while (!isEmpty(x, y) && x != 101) {
             x = random.randomizeLocation();
             y = random.randomizeLocation();
         }
         mapItems[x][y] = new Herbivorous(x, y, random.randomizeHealthPoints(), 3, random.randomizeDropAmount(), random.randomizePerception());
+        inputToTable(x, y, herbivorousList);
     }
 
     private void createWarrior(int tribeIndex) {
         int x = random.randomizeLocation();
         int y = random.randomizeLocation();
-        while (!isEmpty(x, y)) {
+        while (!isEmpty(x, y) && x != 101) {
             x = random.randomizeLocation();
             y = random.randomizeLocation();
         }
         mapItems[x][y] = new Warrior(x, y, random.randomizeHealthPoints(), 3, random.randomizeDropAmount(), tribeIndex, random.randomizeStrenght());
+        inputToTable(x, y, humanList);
     }
 
     private void createGatherer(int tribeIndex) {
         int x = random.randomizeLocation();
         int y = random.randomizeLocation();
-        while (!isEmpty(x, y)) {
+        while (!isEmpty(x, y) && x != 101) {
             x = random.randomizeLocation();
             y = random.randomizeLocation();
         }
         mapItems[x][y] = new Gatherer(x, y, random.randomizeHealthPoints(), 3, random.randomizeDropAmount(), tribeIndex);
+        inputToTable(x, y, humanList);
     }
-    public Map(Randomizer random){
+
+    public Map(Randomizer random) {
         this.random = random;
+        for (int i = 0; i < 5; i++) {
+            herbivorousList[i][0] = 101;
+            carnivorceList[i][0] = 101;
+            plantList[i][0] = 101;
+            treeList[i][0] = 101;
+        }
+        for (int i = 0; i < 2; i++) {
+            rockList[i][0] = 101;
+            ironList[i][0] = 101;
+        }
+        for (int i = 0; i < 10; i++) {
+            humanList[i][0] = 101;
+        }
+    }
+
+    private void inputToTable(int x, int y, int[][] table) {
+        int i = 0;
+        while (table[i][0] != 101) {
+            i++;
+        }
+        table[i][0] = x;
+        table[i][1] = y;
     }
 
 }

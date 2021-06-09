@@ -1,13 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.lang.Math;
 
-/**
- *
- * @author kubik
- */
 public class Herbivorous extends Creature{
     private int perception;
     
@@ -25,8 +17,19 @@ public class Herbivorous extends Creature{
     
     }
     @Override
-    public Objects findTarget(){
-    
+    public int findTargetIndex(int[][] table){
+        int lowestDistance = 100;
+        int distance;
+        int index = 0;
+        for(int i = 0;i<5;i++){
+           distance = Math.abs(table[i][0]-positionX)+ Math.abs(table[i][1]-positionY);
+           if(distance<lowestDistance){
+               lowestDistance = distance;
+               index = i;
+           }
+           
+        }
+        return index;
     }
     public Herbivorous(int positionX, int positionY, int healthPoints, int resourceIndex, int dropAmount, int perception){
         this.positionX = positionX;
@@ -36,6 +39,18 @@ public class Herbivorous extends Creature{
         this.dropAmount = dropAmount;
         this.perception = perception;
         
+    }
+    @Override
+    public void doAction(int[][] table) {
+        if(targetIndex!=101){
+            if(isInRange(positionX,positionY,table[targetIndex][0],table[targetIndex][1])){
+                eat();
+            }else{
+                moveToTarget();
+            }
+        }else if(targetIndex==101 && hungerPoints<6){
+            findTargetIndex(table);
+        }
     }
     
 }
