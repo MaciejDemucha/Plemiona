@@ -6,15 +6,32 @@ public class Tribe {
 
     public boolean checkWinCondition() {
         //LICZBA SUROWCÓW DO ZMIANY
-        if (resourceAmount[0] == 40 && resourceAmount[1] == 20 && resourceAmount[2] == 50) {
-            return true;
-        } else {
-            return false;
+        return resourceAmount[0] == 40 && resourceAmount[1] == 20 && resourceAmount[2] == 50;
+    }
+
+    public Tribe(int tribeNr) {
+        this.resourceAmount = new int[4];
+        for (int i = 0; i < 4; i++) {
+            resourceAmount[i] = 0;
         }
+        this.tribeNr = tribeNr;
     }
-     public boolean isEnoughFood(){
-        return resourceAmount[3]>50;
+
+    public void addResources(int amountToAdd, int resourceIndex) {
+        resourceAmount[resourceIndex] += amountToAdd;
     }
+
+    public void removeResources(int amountToRemove, int resourceIndex) {
+        resourceAmount[resourceIndex] -= amountToRemove;
+    }
+
+    public int checkResources(int resourceIndex) {
+        return resourceAmount[resourceIndex];
+    }
+    public int[] checkResources(){
+        return resourceAmount;
+    }
+
 }
 
 
@@ -24,4 +41,9 @@ public class Tribe {
 2 - WOOD;
 3 - MEAT;
 4 - PLANT;
+
+DLA TRIBE
+3 - FOOD
+4 - NONE
+
  */

@@ -4,51 +4,56 @@ public class Carnivorous extends Creature {
     private int strenght;
 
     public void attack() {
-
+        target.takeDamage(strenght);
+        if(!target.isAlive){
+            eat();
+        }
     }
 
     public Carnivorous(int positionX, int positionY, int healthPoints, int resourceIndex, int dropAmount, int strenght) {
+        super();
         this.positionX = positionX;
         this.positionY = positionY;
         this.healthPoints = healthPoints;
         this.resourceIndex = resourceIndex;
         this.dropAmount = dropAmount;
         this.strenght = strenght;
-        this.targetIndex = 101;
+        this.target = null;
 
     }
-
     @Override
     public void eat() {
-
+        this.hungerPoints+=target.checkDropAmount();
     }
 
     @Override
-    public int findTargetIndex(int[][] table) {
+    public void findTarget(Objects[] table) {
         int lowestDistance = 100;
         int distance;
         int index = 0;
         for (int i = 0; i < 5; i++) {
-            distance = Math.abs(table[i][0] - positionX) + Math.abs(table[i][1] - positionY);
-            if (distance < lowestDistance) {
+            targetLocation = table[i].checkLocation(); 
+            distance = Math.abs(targetLocation[0] - positionX) + Math.abs(targetLocation[1] - positionY);   
+            if (distance < lowestDistance && table[i].isAlive) {
                 lowestDistance = distance;
                 index = i;
             }
 
         }
-        return index;
+        this.target = table[index];
     }
 
     @Override
-    public void doAction(int[][] table) {
-        if(targetIndex!=101){
-            if(isInRange(positionX,positionY,table[targetIndex][0],table[targetIndex][1])){
+    public void doAction(Objects[] table, Objects[][] mapItems) {
+        if(target!=null){
+            targetLocation = target.checkLocation();
+            if(isInRange(positionX,positionY,targetLocation[0],targetLocation[1])){
                 attack();
             }else{
-                moveToTarget();
+                moveToTarget(mapItems,targetLocation[0],targetLocation[1]);
             }
-        }else if(targetIndex==101 && hungerPoints<6){
-            findTargetIndex(table);
+        }else if(target==null && hungerPoints<6){
+            findTarget(table);
         }
     }
 }

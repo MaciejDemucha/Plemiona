@@ -8,7 +8,8 @@ public class Gatherer extends Human {
 
     }
 
-    public Gatherer(int positionX, int positionY, int healthPoints, int resourceIndex, int dropAmount, int tribeIndex) {
+    public Gatherer(int positionX, int positionY, int healthPoints, int resourceIndex, int dropAmount,Tribe tribe) {
+        super(tribe);
         //DO ZMIANY
         this.LiftingCapacity = 10;
 
@@ -17,31 +18,32 @@ public class Gatherer extends Human {
         this.healthPoints = healthPoints;
         this.resourceIndex = resourceIndex;
         this.dropAmount = dropAmount;
-        this.tribeIndex = tribeIndex;
 
     }
 
     @Override
-    public int findTargetIndex(int[][] table) {
+    public void findTarget(Objects[] table) {
         int lowestDistance = 100;
         int distance;
         int index = 0;
-        for (int i = 0; i < table[0].length; i++) {
-            distance = Math.abs(table[i][0] - positionX) + Math.abs(table[i][1] - positionY);
-            if (distance < lowestDistance) {
+        for (int i = 0; i < table.length; i++) {
+            targetLocation = table[i].checkLocation();
+            distance = Math.abs(targetLocation[0] - positionX) + Math.abs(targetLocation[1] - positionY);   
+            if (distance < lowestDistance && table[i].isAlive) {
                 lowestDistance = distance;
                 index = i;
+                
             }
-
+            target = table[i];
         }
-        return index;
+        
     }
 
-    public int[][] choseResourceIndex(int[] resources, int[][] rock, int[][] iron, int[][] wood, int[][] food) {
+    public Objects[] choseResource(int[] resources, Objects[] rock, Objects[] iron, Objects[] wood, Objects[] food) {
 
         int lowestAmount = 101;
         int lowestAmountIndex = gatheringResourceIndex;
-        if (targetIndex!=101) {
+        if (target!=null) {
             for (int i = 0; i < 4; i++) {
                 if (resources[i] < lowestAmount) {
                     lowestAmount = resources[i];
@@ -62,18 +64,21 @@ public class Gatherer extends Human {
 
     }
 
-    public void doAction(int[][] table) {
-        if (targetIndex != 101) {
-            if (isInRange(positionX, positionY, table[targetIndex][0], table[targetIndex][1])) {
+     public void doAction(Objects[] table, Objects[][] mapItems) {
+        if (target != null) {
+            
+
+            targetLocation = target.checkLocation();
+            
+            if(isInRange(positionX,positionY,targetLocation[0],targetLocation[1])) {
                 gather();
-                targetIndex=101;
             } else {
-                moveToTarget();
+                moveToTarget(mapItems,targetLocation[0],targetLocation[1]);
             }
         } else if (hungerPoints < 6) {
             eat();
-        } else if (targetIndex==101){
-            findTargetIndex(table);
+        } else if (target==null){
+            findTarget(table);
         }
     }
 }
