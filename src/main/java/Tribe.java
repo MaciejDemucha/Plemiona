@@ -6,7 +6,7 @@ public class Tribe {
 
     public boolean checkWinCondition() {
         //LICZBA SUROWCÓW DO ZMIANY
-        return resourceAmount[0] == 40 && resourceAmount[1] == 20 && resourceAmount[2] == 50;
+        return resourceAmount[0] > 500 && resourceAmount[1] > 500 && resourceAmount[2] > 600;
     }
 
     public Tribe(int tribeNr) {

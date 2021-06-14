@@ -20,4 +20,13 @@ abstract class Human extends Creature {
         this.tribe = tribe;
         this.itemLevel = 1;
     }
+    public void upgradeTool(){
+        if(itemLevel==1){
+            if(tribe.checkResources(0)>20 && tribe.checkResources(1)>10){
+                itemLevel++;
+                tribe.removeResources(20, 0);
+                tribe.removeResources(10, 1);
+            }
+        }
+    }
 }

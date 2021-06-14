@@ -10,7 +10,7 @@ public class Plant extends Objects {
         this.positionY = positionY;
         this.healthPoints = healthPoints;
         this.resourceIndex = resourceIndex;
-        this.dropAmount = dropAmount;
+        this.dropAmount = 200;
 
     }
 

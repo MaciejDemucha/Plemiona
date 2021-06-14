@@ -34,8 +34,29 @@ public class Herbivorous extends Creature {
         this.positionY = positionY;
         this.healthPoints = healthPoints;
         this.resourceIndex = resourceIndex;
-        this.dropAmount = dropAmount;
+        this.dropAmount = 200;
         
+    }
+    @Override
+    protected void respawn(Randomizer random, Objects[][] mapItem) {
+        if (!isAlive && respawnTime < 1) {
+            int x = random.randomizeLocation();
+            int y = random.randomizeLocation();
+            this.healthPoints = random.randomizeHealthPoints();
+            this.dropAmount = 100;
+            this.hungerPoints = 300;
+            this.isAlive = true;
+            while (mapItem[x][y] != null) {
+                x = random.randomizeLocation();
+                y = random.randomizeLocation();
+            }
+            mapItem[x][y] = this;
+            positionX = x;
+            positionY =y;
+            System.out.println(" RESPAWNED OBJECT"+ mapItem[x][y]);
+        }else
+            respawnTime--;
+
     }
     
     @Override

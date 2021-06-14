@@ -6,9 +6,9 @@ public class Gatherer extends Human {
 
     public void gather() {
         target.takeDamage(10);
-        tribe.addResources(target.checkDropAmount(),gatheringResourceIndex);
-        System.out.println("GATHERED "+target.checkDropAmount() + " RESOURCE INDEX "+gatheringResourceIndex);
-        if(target.isAlive()){
+        tribe.addResources(target.checkDropAmount()*itemLevel, gatheringResourceIndex );
+        System.out.println("GATHERED " + target.checkDropAmount() + " RESOURCE INDEX " + gatheringResourceIndex);
+        if (target.isAlive()) {
             target = null;
         }
     }
@@ -46,7 +46,7 @@ public class Gatherer extends Human {
 
     public Objects[] choseResource(int[] resources, Objects[] rock, Objects[] iron, Objects[] wood, Objects[] food) {
 
-        int lowestAmount = 101;
+        int lowestAmount = tribe.checkResources(gatheringResourceIndex);
         int lowestAmountIndex = gatheringResourceIndex;
         if (target != null) {
             for (int i = 0; i < 4; i++) {
@@ -90,13 +90,14 @@ public class Gatherer extends Human {
                 System.out.println("ZNALAZŁ CEL");
                 findTarget(table);
             }
-            if(hungerPoints<100){
+            if (hungerPoints < 100) {
                 eat();
             }
             hungerPoints--;
             if (hungerPoints < 1) {
                 takeDamage(1);
             }
+            upgradeTool();
         }
     }
 }

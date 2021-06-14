@@ -5,9 +5,9 @@ public class Warrior extends Human {
 
     public void attack() {
         //System.out.println("WARRIOR ATTACKED");
-        target.takeDamage(strenght);
+        target.takeDamage(strenght*itemLevel);
         if (!target.isAlive) {
-            tribe.addResources(target.checkDropAmount(), 3);
+            tribe.addResources(target.checkDropAmount()*itemLevel, 3);
             //System.out.println("WARRIOR KILLED GATHER: "+target.checkDropAmount());
         }
         this.target = null;
@@ -66,6 +66,7 @@ public class Warrior extends Human {
             if (hungerPoints < 1) {
                 this.takeDamage(1);
             }
+            upgradeTool();
         }
     }
 

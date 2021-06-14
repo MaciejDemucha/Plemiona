@@ -127,7 +127,7 @@ public class Map /*extends Canvas*/ {
             y = random.randomizeLocation();
         }
         //ROCK MA MIEĆ USTALONE HP I DROPAMOUNT - DO ZMIANY
-        mapItems[x][y] = new Rock(x, y, 10, resourceIndex, 10);
+        mapItems[x][y] = new Rock(x, y, 1000, resourceIndex, 50);
         if (resourceIndex == 0) {
             inputToTable(mapItems[x][y], stoneList);
         } else {
