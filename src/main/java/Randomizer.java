@@ -16,12 +16,15 @@ public class Randomizer {
         return randomLocation;
     }
     public int randomizeHealthPoints(){
-        int HealthPoints = rand.nextInt(maxHealthPoints);
-        return HealthPoints;
+        int healthPoints = rand.nextInt(maxHealthPoints);
+        return healthPoints;
     }
     public int randomizeDropAmount(){
-        int DropAmount = rand.nextInt(maxDropAmount);
-        return DropAmount;
+        int dropAmount = rand.nextInt(maxDropAmount);
+        while(dropAmount<50){
+            dropAmount = rand.nextInt(maxDropAmount);
+        }
+        return dropAmount;
     }
     public int randomizeStrenght(){
         int strenght = rand.nextInt(maxStrenght);

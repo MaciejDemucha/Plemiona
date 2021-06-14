@@ -23,4 +23,12 @@ public class Plant extends Objects {
 
     }
 
+    @Override
+    public void takeDamage(int damage) {
+        this.healthPoints -= damage;
+        if (this.healthPoints < 0) {
+            this.isAlive = false;
+        }
+    }
+
 }

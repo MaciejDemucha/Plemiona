@@ -33,5 +33,6 @@ abstract class Objects {
     }
     public Objects() {
         this.isAlive = true;
+        
     }
 }

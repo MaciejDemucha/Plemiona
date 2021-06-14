@@ -24,11 +24,25 @@ public class Map /*extends Canvas*/ {
     private Gatherer[] gathererList = new Gatherer[6];
     private Warrior[] warriorList= new Warrior[4];
     
+    
     public void refresh() {
+        int[] location = new int[2];
         regrowPlants();
         respawnObjects();
         doActions();
+        //location = warriorList[0].checkLocation();
+        //System.out.print(location[0]+" "+location[1]);
+        //System.out.println(mapItems[location[0]][location[1]]);
+        System.out.println("SUROWCE 1 "+tribeList[0].checkResources(0)+" "+ tribeList[0].checkResources(1) +" "+ tribeList[0].checkResources(2)+" "+tribeList[0].checkResources(3));
+         System.out.println("SUROWCE 2 "+tribeList[1].checkResources(0)+" "+ tribeList[1].checkResources(1) +" "+ tribeList[1].checkResources(2)+" "+tribeList[1].checkResources(3));
         
+    }
+    public boolean isWon(){
+         if(tribeList[0].checkWinCondition() || tribeList[1].checkWinCondition()){
+            return true;
+        }else{
+             return false;
+         }
     }
     public void drawOnMap(){
         for(int i = 0;i<100;i++){
