@@ -6,10 +6,6 @@ public class Main {
         Randomizer random = new Randomizer(100, 10, 100, 10, 10);
         Map map = new Map(random);
         map.createObjects();
-        map.refresh();
-       //System.out.print("Test");
-      //System.out.println("cls");
-       //map.drawOnMap();
        int counter = 0;
        while(!map.isWon()){
            map.refresh();
